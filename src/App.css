@@ -1,0 +1,284 @@
+/* Define the global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.color{
+  color: #0fbf09;
+  cursor: pointer;
+}
+/* Define the styles for the Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;;
+  align-items: center;
+  background-color: #eee;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+/* Style for the Navbar buttons */
+.navbar button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  margin: 0 5px;
+  /* Add margin for button spacing */
+  background-color: #00b3b3;
+  /* Default background color */
+  color: #fff;
+  /* Default text color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Default shadow */
+  background-image: linear-gradient(to bottom, #00cccc, #007a7a);
+  /* Gradient background */
+}
+
+/* Unique button hover styles */
+.navbar button:hover {
+  background-image: linear-gradient(to bottom, #00e6e6, #005555);
+  /* Lighter gradient on hover */
+  transform: translateY(-2px);
+  /* Move button slightly up */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  /* Adjust shadow on hover */
+}
+
+/* Unique transition when clicked */
+.navbar button:active {
+  transform: translateY(1px);
+  /* Move button slightly down on click */
+  box-shadow: none;
+  /* Remove shadow on click */
+}
+
+/* Style for the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* Show dropdown content on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Define the styles for the container element */
+.container {
+  max-width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+  margin-top: 50px;
+  /* Adjusted margin top for Navbar */
+  color: #444;
+  /* background-color: #f5f5f5; */
+  transition: font-size 0.3s ease;
+  /* Transition for font size changes */
+  font-family: "Georgia", serif;
+  /* Default font family */
+}
+
+/* Define the styles for the title element */
+.titl {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #008080;
+}
+
+/* Define the styles for the content element */
+.content {
+  height: 70vh;
+  font-size: 18px;
+  text-align: justify;
+  margin-bottom: 30px;
+  overflow-y: auto;
+}
+
+/* Define the styles for the button element */
+.button {
+  display: block;
+  width: 140px;
+  margin: 0 auto;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #008080;
+  cursor: pointer;
+}
+
+/* Define the styles for the navigation element */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* Define the styles for the night mode */
+.night {
+  color: #fff;
+  background-color: #333;
+}
+
+/* Define the styles for the night mode button */
+.night .button {
+  color: #333;
+  background-color: #fff;
+}
+/* Define the styles for the different themes */
+.light {
+  background-color: #ffffff;
+  /* Adjusted to pure white */
+  color: #333333;
+  /* Darker text color for contrast */
+}
+
+.dark {
+  background-color: #1a1a1a;
+  /* Dark gray background */
+  color: #f5f5f5;
+  /* Lighter text color for contrast */
+}
+
+.yellow {
+  background-color: #ffeb99;
+  /* Light yellow background */
+  color: #663300;
+  /* Dark brown text color for contrast */
+}
+
+.blue {
+  background-color: #cce0ff;
+  /* Light blue background */
+  color: #004080;
+  /* Dark blue text color for contrast */
+}
+
+/* css for search moal */
+/* Add these modified classes to your CSS */
+.search-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.search-submit {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #008080;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-submit:hover {
+  background-color: #006666;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.search-results h2 {
+  margin-bottom: 10px;
+}
+
+.search-results button {
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #008080;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-results button:hover {
+  background-color: #006666;
+}
+/* css end */
+
+/* Add a media query for screens that are 600px or smaller */
+@media (max-width: 600px) {
+  /* Adjustments for smaller screens */
+
+  .container {
+    font-size: 16px;
+    /* Increased font size for better readability */
+    padding: 15px;
+    /* Adjusted padding for smaller screens */
+    width: 90%;
+  }
+
+  .titl {
+    font-size: 28px;
+    /* Adjusted title font size for smaller screens */
+    margin-bottom: 20px;
+    /* Reduced margin for smaller screens */
+  }
+
+  .content {
+    height: 60vh;
+    /* Adjusted content height for smaller screens */
+    font-size: 14px;
+    /* Smaller font size for smaller screens */
+    margin-bottom: 20px;
+    /* Reduced margin for smaller screens */
+    overflow-y: auto;
+  }
+
+  .button {
+    width: 120px;
+    /* Adjusted button width for smaller screens */
+    padding: 10px;
+    /* Adjusted padding for smaller screens */
+  }
+
+  .navigation{
+    margin: 20px 30px;
+  }
+
+  .navigation .button {
+    margin: 8px 0;
+    /* Increased margin for smaller screens */
+  }
+}
