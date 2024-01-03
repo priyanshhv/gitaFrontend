@@ -366,7 +366,7 @@ const App = () => {
 
   // Return the JSX for the component
   return (
-      <div className={`app ${theme}`}>
+      <div className={`noCopy app ${theme}`}>
       <Navbar
         changeFont={changeFont}
         increaseFont={increaseFont}

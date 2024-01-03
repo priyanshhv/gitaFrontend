@@ -322,3 +322,26 @@
    margin-left: -2em;
  }
 
+.noCopy {
+  user-select: none;
+  /* Standard syntax */
+  -webkit-user-select: none;
+  /* Chrome, Safari, and Opera syntax */
+  -moz-user-select: none;
+  /* Firefox syntax */
+  -ms-user-select: none;
+  /* IE syntax */
+}
+
+html {
+  user-select: none;
+}
+
+@media print {
+
+  html,
+  body {
+    /* Hide the whole page */
+    display: none;
+  }
+}
