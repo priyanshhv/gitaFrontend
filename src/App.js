@@ -17,6 +17,7 @@ const GitaPage = ({ page, setPage, selectedFont, fontSize, theme, toggleNightMod
   // Use state variables to store the content and the night mode status
   const [content, setContent] = useState("");
   const [nightMode, setNightMode] = useState(false);
+  const [bookName,setBookName] = useState("Ancient Texts");
 
    const [modalStrings, setModalStrings] = useState(["Hare Krishna", "Jay Shree Ram"]);
   const [heading, explanation] = modalStrings;
@@ -51,7 +52,8 @@ function changeString(str) {
   // Use the replace() method with a callback function that returns a span element
   let newStr = str.replace(regex, (match, p1, p2) => {
     // Return a span element with the second string as the data-string attribute and the first string as the text content
-    return `<span data-string="${p2}" class="color">${p1}</span>`;
+    // return `<span data-string="${p2}" class="color">${p1}</span>`;
+    return `<li data-string="${p2}" value="${p1}">${p1}</li>`;
   });
 
   // Return the modified string
@@ -63,13 +65,20 @@ function changeString(str) {
   useEffect(() => {
     // Define the API URL based on the page number
     const url = `https://gitabackend.onrender.com/api/pages/${page}`;
+    //console.log("request sent");
 
     // Use axios to make a GET request and set the content state
     axios
       .get(url)
       .then((response) => {
         // Extract the verses from the response data
-        const verses = changeString(response.data?.content);
+        let verses = changeString(response.data?.content);
+        // console.log(verses);
+        // Set the content state
+        const regex = /heading\(([^)]+)\)(.*)/;
+        const matches =  verses.match(regex);
+        
+        verses = matches[2];
         //console.log(verses);
         // Join the verses with line breaks and set the content state
         const text = verses.split("__").join("<br><br>");
@@ -78,25 +87,28 @@ function changeString(str) {
        
         // loop through the collection
         setTimeout(() => {
-           document.querySelectorAll("span").forEach(function(span) {
+           document.querySelectorAll("li").forEach(function(span) {
           // add a click event listener to each element
           //console.log(span);
           span.addEventListener("click", handleModal);
         });
         }, 500);
+        
+        setBookName(matches[1]);
        
       })
       .catch((error) => {
         // Handle the error and set the content state to an error message
         // console.error(error);
         setContent("Something went wrong. Please try again later.");
+        setBookName("Ancient Texts")
         // setContent(error);
 
       });
 
       return ()=>{
         // loop through the collection
-        document.querySelectorAll("span").forEach(function(span) {
+        document.querySelectorAll("li").forEach(function(span) {
           // add a click event listener to each element
           //console.log("removing listener",span);
           span.removeEventListener("click", handleModal);
@@ -115,6 +127,8 @@ function changeString(str) {
     // Get the new page number from the event target value
     const str = evt.target.textContent;
     const newPage = parseInt(str.substring(str.lastIndexOf(" ")))
+
+    // setBookName("Ancient Texts")
     //console.log(str.substring(str.lastIndexOf(" ")));
     //Check if the new page is a valid number and within the range of 1 to 18
     if (!isNaN(newPage) && newPage >= 1 ) {
@@ -127,16 +141,21 @@ function changeString(str) {
 
   // Return the JSX for the component
   return (
-     <div className={`container ${theme}`}>
+     <div className={`container `}>
       <ContentEditable
         className="titl"
-        html={`The Gita - Page ${page}`} 
+        html={`Book ${page}`} 
         disabled={false} 
         onBlur={handlePageChange} 
         tagName="h1" 
-        style={{ fontFamily: selectedFont, fontSize: `${fontSize}px` }} // Apply selected font and font size
+        style={{ fontFamily: selectedFont, fontSize: `${fontSize-20}px` , textAlign:"left", margin: "-30px 0 1px 0"}} // Apply selected font and font size
       />
-      <p className="content" style={{ fontFamily: selectedFont, fontSize: `${fontSize/2}px` }}>{parser.parse(content)}</p>
+      <h3 className="titl" style={{ fontFamily: selectedFont,textAlign:"left",fontSize: `${fontSize-10}px`, marginBottom:"2px"}}>{bookName}</h3>
+      
+        <ol className="content" style={{ fontFamily: selectedFont, fontSize: `${fontSize/2}px` }}>
+        {parser.parse(content)}
+        </ol>
+      
       {/* <button className="button" onClick={toggleNightMode}>
         {nightMode ? "Light Mode" : "Night Mode"}
       </button> */}
@@ -145,6 +164,11 @@ function changeString(str) {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
+        style={{
+                  content: {
+                    inset: "10px",
+                  },
+               }}
       >
       <div className={`container ${theme}`}>
         <h2 className={`titl ${nightMode ? "night" : ""}`} style={{ fontFamily: selectedFont, fontSize: `${fontSize}px` }} >{heading}</h2>
@@ -157,7 +181,7 @@ function changeString(str) {
 };
 
 //Defining the Navbar Component
-const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setPage }) => {
+const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setPage,theme }) => {
   // ...
    const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -195,7 +219,7 @@ const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setP
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar `}>
       {/* Font Selection Dropdown */}
       <div className="dropdown">
         <button className="dropbtn">Font</button>
@@ -220,6 +244,7 @@ const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setP
           <button onClick={() => handleThemeChange('dark')}>Dark</button>
           <button onClick={() => handleThemeChange('yellow')}>Yellow</button>
           <button onClick={() => handleThemeChange('blue')}>Blue</button>
+          <button onClick={() => handleThemeChange('wooden')}>Wooden</button>
         </div>
       </div>
       {/* Implement the color palette icon/button here */}
@@ -263,11 +288,18 @@ const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setP
         {/* Display Search Results */}
         <div className="search-results">
           <h2>Search Results</h2>
-          {searchResults.map((page) => (
-            <button key={page} onClick={() => handlePageClick(page)} className="search-results-button">
-              Page {page}
+          {searchResults.map((page) =>{ 
+            const pageNo = page?.page;
+            const regex = /heading\(([^)]+)\)(.*)/;
+            const matches =   page?.content?.match(regex);
+            const bookName = matches[1];
+            return (
+            <button key={pageNo} onClick={() => handlePageClick(pageNo)} className="search-results-button">
+               {bookName}
             </button>
-          ))}
+          )
+          }
+          )}
         </div>
         <button onClick={closeModal} className="button">
           Close
@@ -340,6 +372,7 @@ const App = () => {
         decreaseFont={decreaseFont}
         handleThemeChange={handleThemeChange}
         setPage={setPage}
+        theme={theme}
       />
       <div className="container">
         <GitaPage
