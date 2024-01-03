@@ -53,7 +53,7 @@ function changeString(str) {
   let newStr = str.replace(regex, (match, p1, p2) => {
     // Return a span element with the second string as the data-string attribute and the first string as the text content
     // return `<span data-string="${p2}" class="color">${p1}</span>`;
-    return `<li data-string="${p2}" value="${p1}">${p1}</li>`;
+    return `<li data-string="${p2}" value="${p1}" class="color">${p1}</li>`;
   });
 
   // Return the modified string
@@ -150,7 +150,7 @@ function changeString(str) {
         tagName="h1" 
         style={{ fontFamily: selectedFont, fontSize: `${fontSize-20}px` , textAlign:"left", margin: "-30px 0 1px 0"}} // Apply selected font and font size
       />
-      <h3 className="titl" style={{ fontFamily: selectedFont,textAlign:"left",fontSize: `${fontSize-10}px`, marginBottom:"2px"}}>{bookName}</h3>
+      <h3 className="titl" style={{ fontFamily: selectedFont,textAlign:"left",fontSize: `${fontSize-18}px`, marginBottom:"2px"}}>{bookName}</h3>
       
         <ol className="content" style={{ fontFamily: selectedFont, fontSize: `${fontSize/2}px` }}>
         {parser.parse(content)}
@@ -289,6 +289,7 @@ const Navbar = ({ changeFont, increaseFont, decreaseFont, handleThemeChange,setP
         <div className="search-results">
           <h2>Search Results</h2>
           {searchResults.map((page) =>{ 
+            console.log(page);
             const pageNo = page?.page;
             const regex = /heading\(([^)]+)\)(.*)/;
             const matches =   page?.content?.match(regex);
