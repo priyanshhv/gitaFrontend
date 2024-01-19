@@ -35,7 +35,7 @@ const GitaPage = ({ selectedFont, fontSize, theme }) => {
     // Fetch details for the selected word
     axios.get(`${path}/api/words/${word}`)
       .then((response) => {
-        setModalStrings([response.data?.word, response.data?.content]);
+        setModalStrings([response.data?.word, response.data?.content?.split("__")?.join("<br><br>")]);
         openModal();
       })
       .catch((error) => {
