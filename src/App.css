@@ -91,18 +91,16 @@
 /* Define the styles for the container element */
 .container {
   max-width: 800px;
-  height: 100%;
+  height: 100vh;
+  /* Change this line to make container 100% of the viewport height */
   margin: 0 auto;
   padding: 20px;
   line-height: 1.6;
   margin-top: 1px;
-  /* Adjusted margin top for Navbar */
-  /* color: #444; */
-  /* background-color: #f5f5f5; */
-  transition: font-size 0.3s ease;
-  /* Transition for font size changes */
   font-family: "Georgia", serif;
-  /* Default font family */
+  transition: font-size 0.3s ease;
+  /* overflow-y: auto; */
+  /* Add this line to enable vertical scrolling */
 }
 
 /* Define the styles for the title element */
@@ -203,40 +201,72 @@
     font-weight: 900;
 }
 
-/* css for search moal */
-/* Add these modified classes to your CSS */
+/* css for search modal */
 .search-modal {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  /* Center vertically on the screen */
+  height: 100vh;
+  /* Take full height of the viewport */
+}
+
+.search-container {
+  margin-bottom: 20px;
 }
 
 .search-input {
-  margin-bottom: 10px;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px;
+  width: 250px;
+  font-size: 18px;
+  /* Adjust the font size as needed */
 }
 
-.search-submit {
+.close-search {
+  margin-top: 10px;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  background-color: #008080;
+  background-color: #ff6666;
+  /* Adjust the background color as needed */
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.search-submit:hover {
-  background-color: #006666;
+.close-search:hover {
+  background-color: #e60000;
+  /* Adjust the hover background color as needed */
 }
 
 .search-results {
   margin-top: 20px;
 }
 
+/* Style for each search result item */
+.search-result {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 8px;
+  /* background-color: #fff; */
+  /* Set your preferred background color */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  /* Smooth background color transition */
+
+  /* Additional styling for a more interactive appearance */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  /* color: #333; */
+  /* Set your preferred text color */
+}
+
+/* css end */
 .search-results h2 {
   margin-bottom: 10px;
 }
@@ -250,6 +280,11 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.search-result:hover {
+  color: #008080;
+  /* Set your preferred hover background color */
 }
 
 .search-results button:hover {
@@ -277,7 +312,7 @@
   }
 
   .content {
-    height: 60vh;
+    height: 100%;
     /* Adjusted content height for smaller screens */
     font-size: 14px;
     /* Smaller font size for smaller screens */
@@ -344,4 +379,78 @@ html {
     /* Hide the whole page */
     display: none;
   }
+}
+
+/* ... (your existing CSS) */
+
+/* Search Container */
+.search-container input {
+  /* Add a subtle bounce animation to the search input */
+  transition: transform 0.2s ease-in-out;
+}
+
+.search-container input:focus {
+  transform: scale(1.05);
+}
+
+/* Search Results */
+.search-results {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Fade in search suggestions with a slight delay */
+.search-results.show {
+  opacity: 1;
+}
+
+/* Loading Spinner Animation */
+.loading-spinner {
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modal Animation */
+.react-modal {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.react-modal--after-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.react-modal--before-close {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.heading-container {
+  text-align: center;
+  margin-top: 0%;
+}
+
+.heading {
+  font-family: 'Poppins';
+  /* Use your preferred font */
+  font-size: 36px;
+  color: #008080;
+ 
+  /* Use your preferred color */
+  text-transform: uppercase;
+  /* Optional: Uppercase for a bolder look */
+  letter-spacing: 2px;
+  /* Optional: Adjust letter spacing for a customized look */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Optional: Add a subtle shadow */
 }
